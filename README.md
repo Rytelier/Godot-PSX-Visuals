@@ -9,7 +9,7 @@ Shader pack provides PSX style shaders emulating hardware's liminations.
 - Triangle based depth sorting
 - Distance triangle culling
 - Close triangle pushback
-- Per vertex additive/black fog
+- Per vertex colored/black fog
 - 4 blending modes: half, add, subtract, add quarter
 - Flipbook and pan animation
 

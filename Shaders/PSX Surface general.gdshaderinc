@@ -69,15 +69,6 @@ vec4 snap_to_position(vec4 base_position)
 	return snapped_position;
 }
 
-vec3 fromLinear(vec3 linearRGB)
-{
-	bvec3 cutoff = lessThan(linearRGB, vec3(0.0031308));
-	vec3 higher = vec3(1.055)*pow(linearRGB, vec3(1.0/2.4)) - vec3(0.055);
-	vec3 lower = linearRGB * vec3(12.92);
-
-	return mix(higher, lower, cutoff);
-}
-
 void vertex() {
 	vec4 vertex = (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
 
@@ -143,7 +134,7 @@ void fragment() {
 	DEPTH = FRAGCOORD.w / abs(dist);
 	#endif
 
-	ALBEDO = texture(albedo, uv).rgb * albedoTint.rgb * fromLinear(color).rgb;
+	ALBEDO = texture(albedo, uv).rgb * albedoTint.rgb * color.rgb;
 	#ifdef BLEND_HALF
 	ALPHA = 0.5;
 	#elif defined BLEND_ADD_QUARTER
@@ -152,15 +143,18 @@ void fragment() {
 	ALPHA = texture(albedo, uv).a;
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor;
 	#endif
-	EMISSION = texture(emission, uv).rgb * emissionTint.rgb * fromLinear(color).rgb;
+	EMISSION = texture(emission, uv).rgb * emissionTint.rgb * color.rgb;
 	SPECULAR = 0.;
 	#ifndef NO_FOG
 	if (!fog_black)
+	{
 		#ifdef UNSHADED
 		ALBEDO += vec3(1.) * fog * fog_color.rgb;
 		#else
+		ALBEDO *= mix(vec3(1), vec3(0), fog);
 		EMISSION += vec3(1.) * fog * fog_color.rgb;
 		#endif
+	}
 	else
 		ALBEDO *= mix(vec3(1), vec3(0), fog);
 	#endif
