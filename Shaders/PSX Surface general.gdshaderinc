@@ -52,6 +52,7 @@ global uniform bool fog_black;
 global uniform float cull_dist;
 
 varying vec2 warpUV;
+varying vec3 warpColor;
 varying flat float dist;
 varying float fog;
 varying flat float sort;
@@ -96,6 +97,7 @@ void vertex() {
 	//Affine UV warp
 	#ifndef NO_AFFINE
 	warpUV = UV * (1. + vertex.z * -AFFINE_STRENGTH);
+	warpColor = COLOR.rgb * (1. + vertex.z * -AFFINE_STRENGTH);
 	#endif
 
 	//Fog
@@ -127,6 +129,9 @@ void fragment() {
 		uv *= tile;
 		uv += vec2(tx, ty);
 		#endif
+
+		color = warpColor;
+		color /= 1. + VERTEX.z * -AFFINE_STRENGTH;
 	}
 	#endif
 

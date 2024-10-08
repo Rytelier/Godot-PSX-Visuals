@@ -43,6 +43,5 @@ shader_type spatial;
 You can modify the `PSX Surface general.gdshaderinc` file to add your own features.
 
 # Todo:
-- Vertex color affine warp
 - Screen downscale shader with color limiting and dithering
 - More material features
