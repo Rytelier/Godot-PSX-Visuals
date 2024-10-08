@@ -29,10 +29,6 @@ uniform sampler2D emission: hint_default_white, filter_nearest;
 uniform vec4 emissionTint : source_color = vec4(0,0,0,0);
 uniform vec4 albedoTint : source_color = vec4(1,1,1,1);
 
-uniform float jitter: hint_range(0.0, 1.0) = 1;
-uniform bool jitter_z_coordinate = true;
-uniform bool jitter_depth_independent = true;
-uniform bool affine_texture_mapping = true;
 uniform float alpha_scissor: hint_range(0.0, 1.0) = 1.0;
 
 #ifdef UV_PAN
