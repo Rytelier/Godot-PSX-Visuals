@@ -12,8 +12,12 @@ Shader pack provides PSX style shaders emulating hardware's liminations.
 - Per vertex colored/black fog
 - 4 blending modes: half, add, subtract, add quarter
 - Flipbook and pan animation
+- Screen downscale with color reduction and dithering
+
+![Example screenshot](Example.png)
 
 # Usage
+
 Required Godot version: 4.4 (previous versions have no vertex lighting implemented)
 Global shader parameters are required to work. You can add them in `Project settings -> Globals -> Shader globals`.
 ```
@@ -24,6 +28,8 @@ color fog_color
 bool fog_black
 float cull_dist
 ```
+
+## Material
 Fog from `environment` will not work, as it uses hardware accurate per vertex implementation that allows additive color or black fog.
 You can enable per pixel fog by removing `fog_disabled` and add #define NO_FOG in the gdshaderinc file.
 
@@ -42,6 +48,14 @@ shader_type spatial;
 
 You can modify the `PSX Surface general.gdshaderinc` file to add your own features.
 
+## Screen
+Screen shader for downscaling with color reduction and dithering.
+Resolution is defined in `Shader globals`.
+
+(For forward+ renderer, compositor effect is planned)
+
+For compatilibity renderer use the shader from `Shaders/Canvas` on `ColorRect` covering whole screen.
+
 # Todo:
-- Screen downscale shader with color limiting and dithering
+- Screen downscale shader - compositor effect
 - More material features
