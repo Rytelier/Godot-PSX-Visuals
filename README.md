@@ -52,10 +52,10 @@ You can modify the `PSX Surface general.gdshaderinc` file to add your own featur
 Screen shader for downscaling with color reduction and dithering.
 Resolution is defined in `Shader globals`.
 
-(For forward+ renderer, compositor effect is planned)
+For forward+ renderer, use compositor effect - it can be created in `WorldEnvironment` node, in `Compositor` resource, add `PSX_Screen` to the effects array.
+Note: if you want to change resolution in game, you should change it both in shader globals AND the compositor effect.
 
 For compatilibity renderer use the shader from `Shaders/Canvas` on `ColorRect` covering whole screen.
 
 # Todo:
-- Screen downscale shader - compositor effect
 - More material features
