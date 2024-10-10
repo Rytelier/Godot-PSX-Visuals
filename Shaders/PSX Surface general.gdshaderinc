@@ -4,7 +4,7 @@
 
 //Available blend mode defines: BLEND_HALF, BLEND_ADD, BLEND_SUB, BLEND_ADD_QUARTER, UNSHADED
 //Available UV animation defines: UV_PAN, UV_FLIPBOOK
-//Available various defines: NO_FOG, NO_CULL, NO_TRIANGLE_SORT, NO_AFFINE, NO_SNAP
+//Available various defines: NO_FOG, NO_CULL, NO_TRIANGLE_SORT, NO_AFFINE, NO_SNAP, TEX_COLOR_LINEAR
 
 render_mode diffuse_lambert_wrap, vertex_lighting, fog_disabled
 #if defined(BLEND_ADD) || defined(BLEND_ADD_QUARTER)
@@ -22,9 +22,13 @@ render_mode diffuse_lambert_wrap, vertex_lighting, fog_disabled
 #define AFFINE_STRENGTH 2.0
 #define PUSHBACK_DIST 0.4
 
+#ifdef TEX_COLOR_LINEAR
 uniform sampler2D albedo: hint_default_white, filter_nearest;
-uniform sampler2D specular: hint_default_black, filter_nearest;
 uniform sampler2D emission: hint_default_white, filter_nearest;
+#else
+uniform sampler2D albedo: source_color, hint_default_white, filter_nearest;
+uniform sampler2D emission: source_color, hint_default_white, filter_nearest;
+#endif
 
 uniform vec4 emissionTint : source_color = vec4(0,0,0,0);
 uniform vec4 albedoTint : source_color = vec4(1,1,1,1);
@@ -130,7 +134,7 @@ void fragment() {
 		color /= 1. + VERTEX.z * -AFFINE_STRENGTH;
 	}
 	#endif
-
+	
 	#ifndef NO_TRIANGLE_SORT
 	DEPTH = FRAGCOORD.w / abs(dist);
 	#endif
