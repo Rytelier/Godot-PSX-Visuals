@@ -15,6 +15,9 @@ render_mode diffuse_lambert_wrap, vertex_lighting, fog_disabled
 #ifdef UNSHADED
 , unshaded
 #endif
+#ifdef DOUBLE_SIDED
+, cull_disabled
+#endif
 ;
 
 //Global features here
@@ -134,7 +137,7 @@ void fragment() {
 		color /= 1. + VERTEX.z * -AFFINE_STRENGTH;
 	}
 	#endif
-	
+
 	#ifndef NO_TRIANGLE_SORT
 	DEPTH = FRAGCOORD.w / abs(dist);
 	#endif
