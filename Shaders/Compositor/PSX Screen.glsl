@@ -12,6 +12,7 @@ layout(set = 1, binding = 1) uniform sampler2D dither_texture;
 layout(push_constant, std430) uniform Params {
 	vec2 raster_size;
 	vec2 color_and_dither;
+	vec2 resolution_full;
 } params;
 
 const float gamma = 2.2;
@@ -39,10 +40,9 @@ void main()
 	
 	coord += vec2(0.5);
 	
-	vec2 down = vec2(size) / vec2(params.raster_size);
-	vec2 screenUV = round(coord / down);
+	vec2 down = vec2(params.resolution_full) / vec2(params.raster_size);
 	
-	vec4 screen = texture(screen_texture, uv);
+	vec4 screen = texelFetch(screen_texture, ivec2(coord * down), 0);
 
 	//Gamma correct like it's done automatically for canvas shader
 	screen.rgb = toGamma(screen.rgb);

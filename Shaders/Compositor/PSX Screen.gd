@@ -134,6 +134,10 @@ func _render_callback(p_effect_callback_type, p_render_data):
 			push_constant.push_back(resoulution.y)
 			push_constant.push_back(color_depth)
 			push_constant.push_back(dither_strength)
+			push_constant.push_back(size_out.x)
+			push_constant.push_back(size_out.y)
+			push_constant.push_back(0)
+			push_constant.push_back(0)
 			
 			var push_constant_apply : PackedFloat32Array = PackedFloat32Array()
 			push_constant_apply = PackedFloat32Array()
