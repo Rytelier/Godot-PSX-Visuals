@@ -57,5 +57,12 @@ Note: if you want to change resolution in game, you should change it both in sha
 
 For compatilibity renderer use the shader from `Shaders/Canvas` on `ColorRect` covering whole screen.
 
+## PSX Manager
+There's a node script `PSX_Manager` which allows you to set fog settings per scene and easily edit screen shader parameters as well.
+The node should be added to every unique scene.
+When added to scene, it will add corresponding editor settings for path to compositor effect/canvas material and will warn you about missing shader globals.
+
+Both GDscript and C# versions are provided, use only one of them.
+
 # Todo:
 - More material features
